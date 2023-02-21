@@ -1,0 +1,14 @@
+SRC = main.cpp replace.cpp
+
+FLAGS = -Wall -Werror -Wextra -std=c++98
+
+all : $(SRC)
+	@g++ $(FLAGS) $(SRC)
+
+clean :
+	@rm a.out
+
+fclean : clean
+	@rm a.out *.replace
+
+re : fclean all
