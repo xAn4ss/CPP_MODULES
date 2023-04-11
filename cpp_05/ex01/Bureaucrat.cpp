@@ -44,6 +44,10 @@ void Bureaucrat::decGrade()
     _grade++;
 }
 
+void Bureaucrat::signForm(){
+    
+}
+
 
 Bureaucrat::~Bureaucrat(){
     // std::cout << _name << " destructed." << std::endl;
