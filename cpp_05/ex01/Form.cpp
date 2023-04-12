@@ -10,7 +10,7 @@ Form::Form(std::string name, int toSign, int grade) : _name(name), _isSigned(0),
         throw Form::GradeTooLowException();
 }
 
-Form::Form(const Form& copied)
+Form::Form(const Form& copied) : _name(copied.getName()), _toSign(copied.getToSign()), _grade(copied.getGrade())
 {
     std::cout << "Copy constructor called." << std::endl;
     *this = copied;
@@ -22,9 +22,10 @@ Form& Form::operator=(const Form& rval){
     {
         this->_isSigned = rval._isSigned;
     }
+    return (*this);
 }
 
-const std::string Form::getName() const{
+std::string Form::getName() const{
     return _name;
 }
 
@@ -32,11 +33,11 @@ bool    Form::getIsSigned() const{
     return _isSigned;
 }
 
-const int Form::getToSign() const{
+int Form::getToSign() const{
     return _toSign;
 }
 
-const int Form::getGrade() const {
+int Form::getGrade() const {
     return _grade;
 }
 
@@ -51,11 +52,11 @@ std::ostream& operator<<(std::ostream& out, Form& form){
 
     out << "Form " << form.getName();
     if (form.getIsSigned())
-        out << "is signed";
+        out << " is signed";
     else
-        out << "is not signed";
-    out << "grade to sign is " << form.getToSign();
-    out << "grade is " << form.getGrade();
+        out << " is not signed";
+    out << " grade to sign is " << form.getToSign();
+    out << " grade is " << form.getGrade();
     return (out);
 }
 

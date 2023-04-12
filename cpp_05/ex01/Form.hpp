@@ -3,6 +3,8 @@
 
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
 private:
@@ -16,10 +18,10 @@ public:
     Form(const Form& copied);
     Form& operator=(const Form& rval);
 
-    const std::string   getName() const;
+    std::string   getName() const;
     bool                getIsSigned() const;
-    const int           getToSign() const;
-    const int           getGrade() const;
+    int           getToSign() const;
+    int           getGrade() const;
 
     void beSigned(Bureaucrat &bureaucrat);
 
