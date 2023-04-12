@@ -6,8 +6,6 @@ int main ()
         Bureaucrat Q("hamid", 50);
         Form A("lazzea", 50, Q.getGrade());
         Q.signForm(A);
-        
-        
     }
     catch (std::exception & e){
 
