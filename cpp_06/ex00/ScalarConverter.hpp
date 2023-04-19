@@ -30,6 +30,7 @@ public:
     bool        isFloat(std::string input);
     bool        isDouble(std::string input);
     bool        isLiteral(std::string input);
+    void        convertToInt(std::string input);
     ~ScalarConverter();
 };
 
@@ -55,12 +56,27 @@ input_type ScalarConverter::getType(std::string input){
         return DOUBLE;
     else if (isLiteral(input))
         return LITERALS;
+    //else throw exception
 }
+
+void ScalarConverter::convertToInt(std::string input){
+    long nb = atoi(input.c_str());
+}
+
 
 void ScalarConverter::Convert(std::string input)
 {
 
-    this->_type = this->getType();
+    this->_type = this->getType(input);
+    switch (_type)
+    {
+    case INT:
+        this->convertToInt(input);
+        break;
+    
+    default:
+        break;
+    }
 }
 
 
