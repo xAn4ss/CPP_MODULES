@@ -54,7 +54,9 @@ bool ScalarConverter::isInt(std::string input){
     long nb = atol(input.c_str());
     if (nb > INT32_MAX || nb < INT32_MIN)
         return false;
-    input.end
+    if (input.find(".", 0) == -1)
+        return false;
+    
     std::cout << nb << std::endl;
 }
 // input_type ScalarConverter::getType(std::string input){
