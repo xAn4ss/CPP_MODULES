@@ -19,18 +19,19 @@ private:
     float _float;
     double _double;
     std::string _char;
-    input_type  _type;
+    static input_type  _type;
     ScalarConverter(std::string input);
     
 public:
-    void        Convert(std::string input);
-    input_type  getType(std::string);
-    bool        isInt(std::string input);
-    bool        isChar(std::string input);
-    bool        isFloat(std::string input);
-    bool        isDouble(std::string input);
-    bool        isLiteral(std::string input);
-    void        convertToInt(std::string input);
+    static void        Convert(std::string input);
+    static input_type  getType(std::string);
+    static void        setType(input_type type);
+    static bool        isInt(std::string input);
+    static bool        isChar(std::string input);
+    static bool        isFloat(std::string input);
+    static bool        isDouble(std::string input);
+    static bool        isLiteral(std::string input);
+    static void        convertToInt(std::string input);
     ~ScalarConverter();
 };
 
@@ -44,40 +45,54 @@ ScalarConverter::~ScalarConverter()
 
 }
 
-input_type ScalarConverter::getType(std::string input){
-
-    if (isInt(input))
-        return INT;
-    else if (isChar(input))
-        return CHAR;    
-    else if (isFloat(input))
-        return FLOAT;
-    else if (isDouble(input))
-        return DOUBLE;
-    else if (isLiteral(input))
-        return LITERALS;
-    //else throw exception
+void ScalarConverter::setType(input_type type)
+{
+    
 }
+
+bool ScalarConverter::isInt(std::string input){
+    long nb = atol(input.c_str());
+    if (nb > INT32_MAX || nb < INT32_MIN)
+        return false;
+    input.end
+    std::cout << nb << std::endl;
+}
+// input_type ScalarConverter::getType(std::string input){
+
+//     if (isInt(input))
+//         return INT;
+//     else if (isChar(input))
+//         return CHAR;    
+//     else if (isFloat(input))
+//         return FLOAT;
+//     else if (isDouble(input))
+//         return DOUBLE;
+//     else if (isLiteral(input))
+//         return LITERALS;
+
+//     throw std::exception();
+//     //else throw exception
+// }
 
 void ScalarConverter::convertToInt(std::string input){
-    long nb = atoi(input.c_str());
+
 }
 
 
-void ScalarConverter::Convert(std::string input)
-{
+// void ScalarConverter::Convert(std::string input)
+// {
 
-    this->_type = this->getType(input);
-    switch (_type)
-    {
-    case INT:
-        this->convertToInt(input);
-        break;
+//     _type = getType(input);
+//     switch (_type)
+//     {
+//     case INT:
+//         convertToInt(input);
+//         break;
     
-    default:
-        break;
-    }
-}
+//     default:
+//         break;
+//     }
+// }
 
 
 
