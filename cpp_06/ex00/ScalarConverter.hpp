@@ -1,8 +1,9 @@
 #ifndef SCALARCONVERTER_HPP
-#define SCALARCNVERTER_HPP
+#define SCALARCONVERTER_HPP
 
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 
 enum input_type{
     INT,
@@ -31,7 +32,10 @@ public:
     static bool         isFloat(std::string input);
     static bool         isDouble(std::string input);
     static bool         isLiteral(std::string input);
-    static void         convertToInt(std::string input);
+    static void         convertFromInt();
+    static void         convertFromChar();
+    static void         convertFromFloat();
+    static void         convertFromDouble();
     ~ScalarConverter();
 };
 
@@ -54,15 +58,11 @@ bool ScalarConverter::isInt(std::string input){
 
     if (input.find(".", 0) != -1)
         return false;
+    if (!isdigit(input[0]))
+        return false; 
     long nb = atol(input.c_str());
     if (nb > INT32_MAX || nb < INT32_MIN)
         return false;
-<<<<<<< HEAD
-    if (input.find(".", 0) == -1)
-        return false;
-    
-    std::cout << nb << std::endl;
-=======
     _int = static_cast<int>(nb);
     return true;
 }
@@ -73,12 +73,12 @@ bool ScalarConverter::isChar(std::string input)
         !strcmp(input.c_str(), "+inf") || !strcmp(input.c_str(), "+inff") ||
         !strcmp(input.c_str(), "-inf") || !strcmp(input.c_str(), "-inff"))
             return false;
-    if (!isprint(input[0]))
-        _char = "Non displayable";
-    else if (isalpha(input[0]))
+    if (isalpha(input[0]) && isprint(input[0]))
+    {
         _char = input[0];
-    return true;
->>>>>>> 50606734d9b32e6c55825f31ee282dfce00909af
+        return true;
+    }
+    return false;
 }
 
 bool ScalarConverter::isFloat(std::string input){
@@ -101,9 +101,9 @@ bool ScalarConverter::isDouble(std::string input){
 }
 
 bool ScalarConverter::isLiteral(std::string input){
-    if (strcmp(input.c_str(), "nan") || strcmp(input.c_str(), "nanf") ||
-    strcmp(input.c_str(), "+inf") || strcmp(input.c_str(), "+inff") ||
-    strcmp(input.c_str(), "-inf") || strcmp(input.c_str(), "-inff"))
+    if (!strcmp(input.c_str(), "nan") || !strcmp(input.c_str(), "nanf") ||
+    !strcmp(input.c_str(), "+inf") || !strcmp(input.c_str(), "+inff") ||
+    !strcmp(input.c_str(), "-inf") || !strcmp(input.c_str(), "-inff"))
         return true;
     else
         return false;
@@ -111,44 +111,66 @@ bool ScalarConverter::isLiteral(std::string input){
 
 input_type ScalarConverter::getType(std::string input){
 
-    if (ScalarConverter::isInt(input))
+    if (isInt(input))
         return INT;
-    else if (ScalarConverter::isChar(input))
-        return CHAR;    
-    else if (ScalarConverter::isFloat(input))
+    else if (isFloat(input))
         return FLOAT;
-    else if (ScalarConverter::isDouble(input))
+    else if (isDouble(input))
         return DOUBLE;
-    else if (ScalarConverter::isLiteral(input))
+    else if (isChar(input))
+        return CHAR;    
+    else if (isLiteral(input))
         return LITERALS;
-
-    throw std::exception();
+    else 
+    {
+        std::cout << "what type is that ? \'" << input << "\'." << std::endl;
+        exit(0);
+    }
     //else throw exception
 }
 
-void ScalarConverter::convertToInt(std::string input){
-
+void ScalarConverter::convertFromInt(){
+    if (isprint(_int))
+        _char = static_cast<char>(_int);
+    else
+        _char = "Non displayable";
+    _float = static_cast<float>(_int);
+    _double = static_cast<double>(_int);
 }
 
-
+void ScalarConverter::convertFromChar()
+{
+    _int = static_cast<int>(_char[0]);
+    _float = static_cast<float>(_char[0]);
+    _double = static_cast<double>(_char[0]);
+}
 void ScalarConverter::Convert(std::string input)
 {
-    _int = 0;
-    _char = "";
-    _float = 0;
-    _double = 0;
-    setType(getType(input));
-    // _type = getType(input);
-    // switch (_type)
-    // {
-    // case INT:
-    //     std::cout << "int" << std::endl;
-    //     // convertToInt(input);
-    //     break;
-    
-    // default:
-    //     break;
-    // }
+    switch (getType(input))
+    {
+        case INT:
+            std::cout << "int" << std::endl;
+            convertFromInt();
+            break;
+        case FLOAT:
+            std::cout << "float" << std::endl;
+            break;
+        case DOUBLE:
+            std::cout << "double" << std::endl;
+            break;
+        case CHAR:
+            std::cout << "char" << std::endl;
+            convertFromChar();
+            break;
+        case LITERALS:
+            std::cout << "literals" << std::endl;
+            break;
+    }
+    std::cout << std::fixed << std::setprecision(1) << 
+    "char      : " << _char << std::endl <<
+    "int       : " << _int << std::endl <<
+    "float     : " << _float << "f" << std::endl <<
+    "double    : " << _double << std::endl;
 }
 
 
