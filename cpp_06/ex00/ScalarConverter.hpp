@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include <cmath>
 
 enum input_type{
     INT,
@@ -21,12 +22,11 @@ private:
     static double _double;
     static std::string _char;
     static input_type  _type;
-    ScalarConverter(std::string input);
+    ScalarConverter();
     
 public:
     static void         Convert(std::string input);
     static input_type   getType(std::string);
-    static void         setType(input_type type);
     static bool         isInt(std::string input);
     static bool         isChar(std::string input);
     static bool         isFloat(std::string input);
@@ -36,27 +36,23 @@ public:
     static void         convertFromChar();
     static void         convertFromFloat();
     static void         convertFromDouble();
+    static void         convertFromLiterals(std::string input);
     ~ScalarConverter();
 };
 
-ScalarConverter::ScalarConverter(std::string input)
+ScalarConverter::ScalarConverter()
 {
-
+    std::cout << "ScalarConverter constructer called." << std::endl;
 }
 
 ScalarConverter::~ScalarConverter()
 {
-
-}
-
-void ScalarConverter::setType(input_type type)
-{
-    
+    std::cout << "ScalarConverter deconstructed." << std::endl;
 }
 
 bool ScalarConverter::isInt(std::string input){
 
-    if (input.find(".", 0) != -1)
+    if (input.find(".") != (size_t)-1)
         return false;
     if (!isdigit(input[0]))
         return false; 
@@ -82,7 +78,7 @@ bool ScalarConverter::isChar(std::string input)
 }
 
 bool ScalarConverter::isFloat(std::string input){
-    if (input.find(".", 0) != -1 && input.back() == 'f')
+    if (input.find(".") != (size_t)-1 && input.back() == 'f')
     {
         double nb = atof(input.c_str());
         _float = static_cast<float>(nb);
@@ -92,7 +88,7 @@ bool ScalarConverter::isFloat(std::string input){
 }
 
 bool ScalarConverter::isDouble(std::string input){
-    if (input.find(".", 0) != -1 && input.back() != 'f')
+    if (input.find(".") != (size_t)-1 && input.back() != 'f')
     {
         _double = atof(input.c_str());
         return true;
@@ -144,6 +140,45 @@ void ScalarConverter::convertFromChar()
     _float = static_cast<float>(_char[0]);
     _double = static_cast<double>(_char[0]);
 }
+
+void ScalarConverter::convertFromFloat(){
+    _int = static_cast<int>(_float);
+    if (isprint(_float))
+        _char = static_cast<char>(_float);
+    else
+        _char = "Non displayable";
+    _double = static_cast<double>(_float);
+}
+
+void ScalarConverter::convertFromDouble(){
+    std::cout << _double << std::endl;
+    _int = static_cast<int>(_double);
+    if (isprint(_double))
+        _char = static_cast<char>(_double);
+    else
+        _char = "Non displayable";
+    _float = static_cast<float>(_double);
+}
+
+void ScalarConverter::convertFromLiterals(std::string input){
+    if (input.find("nan") != (size_t)-1)
+    {
+        _char = "impossible";
+        _float = NAN;
+        _double = NAN;
+    }else if (strcmp(input.c_str(), "inf") == 0)
+    {
+        _char = "impossible";
+        _float = INFINITY;
+        _double = INFINITY;
+    }
+    std::cout << std::fixed << std::setprecision(1) << 
+    "char      : " << _char << std::endl <<
+    "int       : " << _int << std::endl <<
+    "float     : " << _float << "f" << std::endl <<
+    "double    : " << _double << std::endl;
+}
+
 void ScalarConverter::Convert(std::string input)
 {
     switch (getType(input))
@@ -154,9 +189,11 @@ void ScalarConverter::Convert(std::string input)
             break;
         case FLOAT:
             std::cout << "float" << std::endl;
+            convertFromFloat();
             break;
         case DOUBLE:
             std::cout << "double" << std::endl;
+            convertFromDouble();
             break;
         case CHAR:
             std::cout << "char" << std::endl;
@@ -164,6 +201,8 @@ void ScalarConverter::Convert(std::string input)
             break;
         case LITERALS:
             std::cout << "literals" << std::endl;
+            convertFromLiterals(input);
+            return;
             break;
     }
     std::cout << std::fixed << std::setprecision(1) << 
