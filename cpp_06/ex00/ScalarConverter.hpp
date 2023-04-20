@@ -166,7 +166,8 @@ void ScalarConverter::convertFromLiterals(std::string input){
         _char = "impossible";
         _float = NAN;
         _double = NAN;
-    }else if (input.find("inf") != (size_t)-1)
+    }else if (!strcmp(input.c_str(), "+inf") || !strcmp(input.c_str(), "-inf")
+        || !strcmp(input.c_str(), "+inff") || !strcmp(input.c_str(), "-inff"))
     {
         int sign = 1;
         if (input[0] == '-')
@@ -177,7 +178,7 @@ void ScalarConverter::convertFromLiterals(std::string input){
     }
     std::cout << std::fixed << std::setprecision(1) << 
     "char      : " << _char << std::endl <<
-    "int       : " << _int << std::endl <<
+    "int       : " << "impossible" << std::endl <<
     "float     : " << _float << "f" << std::endl <<
     "double    : " << _double << std::endl;
 }
