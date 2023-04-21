@@ -24,9 +24,10 @@ private:
     
 public:
     static void         Convert(std::string input);
+    static void         setInt(int nb);
     static input_type   getType(std::string);
     static void         setType(input_type type);
-    static bool         isInt(std::string input);
+    static bool         isItInt(std::string input);
     static bool         isChar(std::string input);
     static bool         isFloat(std::string input);
     static bool         isDouble(std::string input);
@@ -50,7 +51,7 @@ void ScalarConverter::setType(input_type type)
     
 }
 
-bool ScalarConverter::isInt(std::string input){
+bool ScalarConverter::isItInt(std::string input){
 
     if (input.find(".", 0) != -1)
         return false;
@@ -104,7 +105,7 @@ bool ScalarConverter::isLiteral(std::string input){
 
 input_type ScalarConverter::getType(std::string input){
 
-    if (ScalarConverter::isInt(input))
+    if (ScalarConverter::isItInt(input))
         return INT;
     else if (ScalarConverter::isChar(input))
         return CHAR;    
