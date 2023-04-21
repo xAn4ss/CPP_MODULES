@@ -1,8 +1,8 @@
-SRC = main.cpp ScalarConverter.cpp
-
-NAME = Convert
+SRC = main.cpp Serializer.cpp Data.cpp
 
 FLAGS =  -std=c++98 -Wall -Werror -Wextra
+
+NAME = Serializer
 
 all : $(NAME)
 
