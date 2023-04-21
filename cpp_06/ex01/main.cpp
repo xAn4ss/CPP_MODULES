@@ -1,9 +1,16 @@
 #include "Serializer.hpp"
 
 int main(){
-    void *x;
-    unsigned long t;
-    std::cout << sizeof(x) << std::endl;
-    std::cout << sizeof(t) << std::endl;
+
+    Data data;
+    data.pff = "salam\n";
+    uintptr_t ptr = Serializer::serialize(&data);
+
+
+    std::cout <<"Serialized   : " <<  ptr << std::endl;
+    std::cout <<"Data address : " << &data << std::endl;
+    std::cout <<"Deserialized : " <<  Serializer::deserialize(ptr) << std::endl;
+    // std::cout << sizeof(t) << std::endl;
+
     return 0;
 }
