@@ -6,7 +6,6 @@ float       ScalarConverter::_float = 0;
 double      ScalarConverter::_double = 0;
 
 int main(int ac, char **av){
-
     if (ac != 2)
         return 0;
     ScalarConverter::Convert(av[1]);
