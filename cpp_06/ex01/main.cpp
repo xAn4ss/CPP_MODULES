@@ -10,7 +10,6 @@ int main(){
     std::cout <<"Serialized   : " <<  ptr << std::endl;
     std::cout <<"Data address : " << &data << std::endl;
     std::cout <<"Deserialized : " <<  Serializer::deserialize(ptr) << std::endl;
-    // std::cout << sizeof(t) << std::endl;
 
     return 0;
 }

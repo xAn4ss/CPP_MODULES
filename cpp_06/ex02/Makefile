@@ -1,9 +1,9 @@
-SRC = main.cpp Base.cpp A.cpp B.cpp C.cpp
+SRC = main.cpp Base.cpp
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
 all : $(SRC)
-	@c++ $(SRC) $(FLAGS)
+	@c++ $(FLAGS) $(SRC)
 
 clean : 
 	@rm -rf a.out
