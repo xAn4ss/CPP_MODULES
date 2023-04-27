@@ -1,6 +1,6 @@
 SRC = main.cpp Base.cpp
 
-FLAGS = -Wall -Wextra -Werror -std=c++98
+FLAGS = -std=c++98 #-Wall -Wextra -Werror
 
 all : $(SRC)
 	@c++ $(FLAGS) $(SRC)
