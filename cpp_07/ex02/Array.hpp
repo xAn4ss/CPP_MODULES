@@ -8,7 +8,7 @@ template<class T> class Array
 {
     private:
         unsigned int _size;
-        T arr[];
+        T *arr;
     public:
         Array();
         Array(unsigned int n);
@@ -33,6 +33,7 @@ template <class T> unsigned int Array<T>::size(){
 
 template <class T> Array<T>::Array()
 {
+
     _size = 0;
     arr = NULL;
 };
@@ -40,10 +41,12 @@ template <class T> Array<T>::Array()
 template <class T> Array<T>::Array(unsigned int n)
 {
     _size = n;
-    arr = new T(_size);
+    this->arr = new T(_size);
     for (unsigned int i = 0; i < _size; i++)
+    {
         arr[i] = 0;
-    
+        std::cout << "salam" << std::endl;
+    }
 };
 
 template <class T> Array<T>::Array(const Array &copied)
@@ -56,16 +59,22 @@ template <class T> Array<T>& Array<T>::operator=(const Array<T>& rval)
 
     if (this != &rval)
     {
-        delete [] arr;
-        this->arr = new T(_size);
+
+        // delete [] arr;
+        _size = rval._size;
+        arr = new T(_size);
+            std::cout << "problema assign operator" << _size <<std::endl;
         for(unsigned int i = 0; i < _size; i++)
+        {
             arr[i] = rval.arr[i];
+        }
     }
     return *this;
 };
 
 template <class T> Array<T>::~Array()
 {
+        std::cout << "problema deconstrutor" << std::endl;
     delete[] arr;
 };
 
