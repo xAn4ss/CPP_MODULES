@@ -4,15 +4,16 @@
 #include <exception>
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 
-template <class TT> int easyfind(const TT& cont, const int& num)
+template <typename TT> typename TT::iterator easyfind(TT& cont, int num)
 {
-    std::iterator it;
-    it = std::find(cont.begin(), cont.end(), num);
+    typename TT::iterator it = std::find(cont.begin(), cont.end(), num);
     if (it != cont.end())
-        return std::distance(cont.begin(), it);
+        return it;
     else
         throw std::exception();
+    std::cout <<"aze"<<std::endl;
 }
 
 #endif
