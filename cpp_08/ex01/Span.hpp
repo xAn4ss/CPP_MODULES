@@ -18,6 +18,8 @@ class Span
         Span(unsigned int n);
         Span(const Span& copied);
         Span& operator=(const Span& rval);
+        void addNumbers(std::vector<int>::iterator, std::vector<int>::iterator);
+        void printElement();
         ~Span();
         class maxSizeException : public std::exception{
            const char* what() const throw() {
@@ -32,6 +34,24 @@ class Span
         int operator[](int);
 };
 
+void Span::printElement(){
+    int x = 0;
+    for (std::vector<int>::iterator i = _vect.begin();
+             i != _vect.end() ; i++)
+    {
+        std::cout << this->operator[](x++) << " ";
+    }
+    std::cout << std::endl;
+    
+}
+void Span::addNumbers(std::vector<int>::iterator start, std::vector<int>::iterator end){
+    if(std::distance(start, end) + _vect.size() > _size)
+        throw Span::maxSizeException();
+    else
+        _vect.insert(_vect.begin(), start, end);
+}
+
+
 Span::Span(const Span& copied){
     this->_size = copied._size;
     *this = copied;
@@ -41,8 +61,7 @@ Span& Span::operator=(const Span& rval){
     
     if (this != &rval)
     {
-        for (size_t i = 0; i < _size; i++)
-            this->addNumber(rval._vect[i]);
+            this->_vect = rval._vect;
     }
     return (*this); 
 }
@@ -66,17 +85,18 @@ int Span::longestSpan()
 
 int Span::shortestSpan(){
 
-    if (_vect.size() <= 1)
+    if (_vect.size() < 2)
         throw Span::NoSpanException();
     Span tmp(*this);
-    std::nth_element(tmp._vect.begin(), tmp._vect.begin()+1, tmp._vect.end());
+    std::sort(tmp._vect.begin(), tmp._vect.end());
+    // std::nth_element(tmp._vect.begin(), tmp._vect.begin()+1, tmp._vect.end());
 
-        // for (size_t i = 0; i < 10; i++)
+        // int x = 0;
+        // for (std::vector<int>::iterator i = tmp._vect.begin(); i != tmp._vect.end(); i++)
         // {
-        //     std::cout << tmp._vect[i] << " ";
+        //     std::cout << tmp._vect[x++] << " ";
         // };
         // std::cout << std::endl;
-
         // std::cout <<  tmp._vect[0] << " " << tmp._vect[1] << std::endl;
     
     return ((tmp._vect[1] - tmp._vect[0]) - 1);
@@ -90,7 +110,7 @@ void Span::addNumber(int num){
 
 Span::~Span()
 {
-    std::cout << "Deconstructed" << std::endl;
+    // std::cout << "Deconstructed" << std::endl;
 }
 
 int Span::operator[](int i){
