@@ -6,7 +6,7 @@ NAME = Bureaucrat
 
 all: $(NAME)
 
-$(NAME) : 
+$(NAME) : $(SRC)
 	@c++ $(FLAGS) $(SRC) -o $(NAME)
 
 clean :

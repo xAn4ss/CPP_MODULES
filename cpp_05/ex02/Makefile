@@ -8,7 +8,7 @@ NAME = Form
 
 all: $(NAME)
 
-$(NAME) : 
+$(NAME) : $(SRC)
 	@c++ $(FLAGS) $(SRC) -o $(NAME)
 
 clean :

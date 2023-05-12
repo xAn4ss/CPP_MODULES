@@ -2,9 +2,6 @@
 #define FORM_HPP
 
 #include "Bureaucrat.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "ShrubberyCreationForm.hpp"
 
 
 class Bureaucrat;

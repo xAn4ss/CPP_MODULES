@@ -3,8 +3,6 @@
 
 Form::Form(std::string name, int toSign, int grade) : _name(name), _isSigned(0), _toSign(toSign), _grade(grade)
 {
-    static int i;
-    std::cout << i << std::endl;
     std::cout << "Form " << _name << " constructed." << std::endl;
     if (_grade < 1)
         throw Form::GradeTooHighException();
