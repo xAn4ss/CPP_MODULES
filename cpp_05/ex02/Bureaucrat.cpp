@@ -50,7 +50,7 @@ void Bureaucrat::executeForm(Form const & form){
         std::cout << this->getName() << " executed " << form.getName() << std::endl;
     }
     catch (std::exception& e){
-        std::cout << "Couldn't sign form." << std::endl;
+        std::cout << "Couldn't sign form "<< form.getName() << std::endl;
     }
 
 

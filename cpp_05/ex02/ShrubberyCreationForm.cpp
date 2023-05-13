@@ -21,8 +21,10 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const & executor)const{
-    if (executor.getGrade() > this->getToSign() && this.)
+    if (executor.getGrade() > this->getToSign())
         throw ShrubberyCreationForm::GradeTooLowException();
+    else if (!this->getIsSigned())
+        throw ShrubberyCreationForm::NotSignedException();
     else
     {
         std::string t = _target+ "_shrubbery";

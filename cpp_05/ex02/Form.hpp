@@ -42,6 +42,12 @@ public:
             return "Grade Too Low.";
         }
     };
+    class NotSignedException : public std::exception
+    {
+        virtual const char* what() const throw(){
+            return "Not signed.";
+        }
+    };
 
 };
 

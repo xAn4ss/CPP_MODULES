@@ -15,6 +15,8 @@ void PresidentialPardonForm::execute(Bureaucrat const & executor)
 
     if (executor.getGrade() > this->getToSign())
         throw PresidentialPardonForm::GradeTooLowException();
+    else if (!this->getIsSigned())
+        throw PresidentialPardonForm::NotSignedException();
     else
         std::cout << _target << " has been pardoned." << std::endl;
 }
