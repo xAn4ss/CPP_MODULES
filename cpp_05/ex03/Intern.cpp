@@ -22,14 +22,23 @@ Intern::Intern()
 
 Form* Intern::makeForm(std::string formName, std::string target)
 {
-    std::map<std::string, Form*(*)(std::string)> fmap;
-    fmap["presidential pardon"] = &CreatePresidential;
-    fmap["robotomy request"] = &CreateRobotomy;
-    fmap["shrubbery creation"] = &CreateShrubbery;
-    if (fmap.find(formName) != fmap.end())
+    Form* (*fct[3])(std::string) = {
+        &CreatePresidential,
+        &CreateRobotomy,
+        &CreateShrubbery
+    };
+    std::string fcts[3] = {
+        "presidential pardon",
+        "robotomy request",
+        "shrubbery creation"
+    };
+    for (int i = 0; i < 3 ; i++)
     {
-        std::cout << "Intern creates " << formName << std::endl;
-        return fmap[formName](target);
+        if (!fcts[i].compare(formName))
+        {
+            std::cout << "Intern creates " << formName << std::endl;
+            return (fct[i])(target);
+        }
     }
     std::cout << "Intern couldn't found form." << std::endl;
     return NULL ;
