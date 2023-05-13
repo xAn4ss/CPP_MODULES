@@ -1,4 +1,4 @@
-SRC = main.cpp Serializer.cpp Data.cpp
+SRC = main.cpp Serializer.cpp
 
 FLAGS =  -std=c++98 -Wall -Werror -Wextra
 

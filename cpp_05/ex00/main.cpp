@@ -3,13 +3,14 @@
 int main ()
 {
     try {
-        Bureaucrat Q("hamid", 1);
-        Q.incGrade();
-        std::cout << Q;
+        Bureaucrat A("A", 10);
+        A.incGrade();
+        std::cout << A;
+
+        std::cout << "---------" << std::endl;
         
-        // Bureaucrat A("LaZone", 2);
-        // A.incGrade();
-        // std::cout << A;
+        A.decGrade();
+        std::cout << A;
     }
     catch (std::exception & e){
         std::cout << e.what() << std::endl;
