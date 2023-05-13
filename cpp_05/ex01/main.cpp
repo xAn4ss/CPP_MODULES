@@ -3,15 +3,18 @@
 int main ()
 {
     try {
-        Bureaucrat Q("hamid", 74);
-        Form A("lazzea", 75, Q.getGrade());
-        // A.beSigned(Q);
-        // std::cout << A.getIsSigned() << std::endl;
+        Bureaucrat Q("tmp1", 50);
+        Form A("tmp2", 100, Q.getGrade());
+
+        std::cout << A << std::endl;
+        std::cout << "-------" << std::endl;
+        A.beSigned(Q);
+        std::cout << A << std::endl;
+        std::cout << "-------" << std::endl;
         Q.signForm(A);
-        // std::cout << A;
     }
     catch (std::exception & e){
 
-        std::cout << std::endl << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 }

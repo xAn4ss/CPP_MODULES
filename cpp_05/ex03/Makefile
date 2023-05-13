@@ -1,10 +1,11 @@
 SRC = Bureaucrat.cpp main.cpp\
 		Form.cpp PresidentialPardonForm.cpp\
 		ShrubberyCreationForm.cpp RobotomyRequestForm.cpp\
+		Intern.cpp\
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
-NAME = Form
+NAME = Intern
 
 all: $(NAME)
 

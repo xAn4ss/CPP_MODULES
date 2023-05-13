@@ -21,23 +21,27 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const & executor)const{
-    if (executor.getGrade() > this->getToSign())
+    if (executor.getGrade() > this->getToSign() && this.)
         throw ShrubberyCreationForm::GradeTooLowException();
     else
     {
-        
-        std::cout << "+64563543465468463546464" << std::endl;
-//      ccee88oo
-//   C8O8O8Q8PoOb o8oo
-//  dOB69QO8PdUOpugoO9bD
-// CgggbU8OU qOp qOdoUOdcb
-//     6OuU  /p u gcoUodpP
-//       \\\//  /douUP
-//         \\\////
-//          |||//
-//          |||\/
-//          |||||
-//    .....//||||\....
+        std::string t = _target+ "_shrubbery";
+        std::ofstream  file(t.c_str());
+        if (file.is_open())
+        {
+            file << "      ccee88oo            \n"  
+            << "   C8O8O8Q8PoOb o8oo      \n"  
+            << "  dOB69QO8PdUOpugoO9bD    \n"  
+            << " CgggbU8OU qOp qOdoUOdcb  \n"  
+            << "     6OuU  /p u gcoUodpP  \n"  
+            << "       \\\\//  /douUP      \n"  
+            << "         \\\\////          \n"  
+            << "          |||//           \n"   
+            << "          |||||           \n"   
+            << "          |||||           \n"   
+            << "    .....//||||\\....      \n";    
+            file.close();
+        }
     }
 }
 
