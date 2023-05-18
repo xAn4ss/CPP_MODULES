@@ -13,7 +13,6 @@ template <typename TT> typename TT::iterator easyfind(TT& cont, int num)
         return it;
     else
         throw std::exception();
-    std::cout <<"aze"<<std::endl;
 }
 
 #endif
