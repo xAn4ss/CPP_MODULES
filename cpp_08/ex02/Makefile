@@ -2,10 +2,14 @@ SRC = main.cpp
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-all : $(SRC)
+NAME = MutantStack
+
+all : $(NAME)
+
+$(NAME) : $(SRC)
 	@c++ $(FLAGS) $(SRC)
 
 clean : 
-	@rm -rf a.out
+	@rm -rf $(NAME)
 
 re : clean all

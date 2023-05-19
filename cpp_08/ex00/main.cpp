@@ -13,8 +13,8 @@ int main(){
         while (it != ver.end())
             std::cout << *it++ << std::endl;
         it = easyfind(ver, 1);
-        std::cout << "match at "<< std::distance(ver.begin(), it) << 
-        " value is "<< *it << std::endl;
+        std::cout << "match at "<< std::distance(ver.begin(), it)
+         << " value is "<< *it << std::endl;
     }
     catch (std::exception &e){
         std::cout << "no occurence." << std::endl;

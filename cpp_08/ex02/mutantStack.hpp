@@ -11,35 +11,36 @@ template <class T, class Container = std::deque<T> >
     class MutantStack : public std::stack<T> {
 
         public: 
-            typedef iterator std::stack<T>::container_type::iterator;
+            typedef typename std::stack<T, Container>::container_type::iterator iterator;
             MutantStack(): std::stack<T>(){
+                std::cout << "Constructed" << std::endl;
             };
 
-            MutantStack(const MutantStack& copied): std::stack<T>(copied._stack){
-
+            MutantStack(const MutantStack& copied): std::stack<T>(copied.c){
+                std::cout << "Copy constructor called" << std::endl;
             };
 
             MutantStack& operator=(const MutantStack& rval){
+                std::cout << "Copy assign operator" << std::endl;
                 if (this != &rval){
 
-                    this->operator=(rval);
+                    this->c = rval.c;
                 }
                 return *this;
             };
 
             ~MutantStack()
             {
-                std::cout << "Deconstructed" << std::endl;
+                std::cout << "Destructed" << std::endl;
             };
 
-            typename std::stack<T>::container_type::iterator begin(){
+            iterator begin(){
                 return std::stack<T>::c.begin();
             };
 
-            typename std::stack<T>::container_type::iterator end(){
+            iterator end(){
                 return std::stack<T>::c.end();
             }
-
 };
 
 
