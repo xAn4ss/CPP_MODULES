@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <stack>
+#include <list>
 #include <deque>
 #include <iterator>
 
@@ -12,38 +13,55 @@ template <class T, class Container = std::deque<T> >
 
         public: 
             typedef typename std::stack<T, Container>::container_type::iterator iterator;
-            MutantStack(): std::stack<T>(){
-                std::cout << "Constructed" << std::endl;
-            };
 
-            MutantStack(const MutantStack& copied): std::stack<T>(copied.c){
-                std::cout << "Copy constructor called" << std::endl;
-            };
+            MutantStack();
 
-            MutantStack& operator=(const MutantStack& rval){
-                std::cout << "Copy assign operator" << std::endl;
-                if (this != &rval){
+            MutantStack(const MutantStack& copied);
 
-                    this->c = rval.c;
-                }
-                return *this;
-            };
+            MutantStack& operator=(const MutantStack& rval);
 
-            ~MutantStack()
-            {
-                std::cout << "Destructed" << std::endl;
-            };
+            ~MutantStack();
 
-            iterator begin(){
-                return std::stack<T>::c.begin();
-            };
+            iterator begin();
 
-            iterator end(){
-                return std::stack<T>::c.end();
-            }
+            iterator end();
 };
 
 
+template <class T, class Cont > MutantStack<T, Cont>::MutantStack()
+{
+    std::cout << "Constructed" << std::endl;
+};
+
+template <class T, class Cont > MutantStack<T, Cont>::~MutantStack()
+{
+    // std::cout << "Destructed" << std::endl;
+};
+
+template <class T, class Cont> MutantStack<T, Cont>::MutantStack(const MutantStack& copied)
+    : std::stack<T>(copied.c){
+        std::cout << "Copy constructor called" << std::endl;
+        *this = copied;
+};
+
+template <class T, class Cont> MutantStack<T, Cont>& MutantStack<T, Cont>::operator=(const MutantStack& rval)
+{
+    std::cout << "Copy assign operator" << std::endl;
+    if (this != &rval){
+        this->c = rval.c;
+    }
+    return *this;
+};
+
+template<class T, class Cont> typename MutantStack<T, Cont>::iterator MutantStack<T, Cont>::begin()
+{
+    return std::stack<T>::c.begin();
+};
+
+template<class T, class Cont> typename MutantStack<T, Cont>::iterator MutantStack<T, Cont>::end()
+{
+    return std::stack<T>::c.end();
+}
 
 
 #endif

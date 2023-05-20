@@ -57,7 +57,13 @@ int Span::shortestSpan(){
         throw Span::NoSpanException();
     Span tmp(*this);
     std::sort(tmp._vect.begin(), tmp._vect.end());
-    return (abs(tmp._vect[1] - tmp._vect[0] - 1));
+    int x = tmp[1] - tmp[0];
+    for (unsigned int y = 1; y < _size; y++)
+    {
+        if (x > (tmp[y] - tmp[0]))
+            x = tmp[y] - tmp[0];
+    }
+    return (x);
 }
 
 void Span::addNumber(int num){
