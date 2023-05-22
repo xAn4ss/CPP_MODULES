@@ -20,7 +20,7 @@ int main(int ac, char **av){
         exit(EXIT_FAILURE);
     }
     std::string buf;
-    char *end {};
+    char *end;
     getline(input, buf);
     std::string date, value;
     while (getline(input, buf))
@@ -35,7 +35,7 @@ int main(int ac, char **av){
             date = buf.substr(0, i-1);
             value = buf.substr(i+1);
             // std::cout << date << "--" << value << std::endl;
-            if (checkDate(date) && checkValue(value))
+            if (checkDate(date, data) && checkValue(value))
             {
                 std::cout << date << " =>" << value << " = "
                 << data[date] * strtof(value.c_str(), &end) << std::endl;
@@ -43,5 +43,5 @@ int main(int ac, char **av){
         }
     }
     
-    std::cout << data["2012-03-02"] << std::endl;
+    // std::cout << data["2012-03-02"] << std::endl;
 }

@@ -6,7 +6,6 @@ void Span::printElement(){
              i != _vect.end() ; i++)
     {
         std::cout << this->operator[](x++) 
-        //    _vect[x++] 
         << " ";
     }
     std::cout << std::endl;
@@ -56,14 +55,16 @@ int Span::shortestSpan(){
     if (_vect.size() < 2)
         throw Span::NoSpanException();
     Span tmp(*this);
+    std::vector<int> v(tmp._vect.size());
     std::sort(tmp._vect.begin(), tmp._vect.end());
-    int x = tmp[1] - tmp[0];
-    for (unsigned int y = 1; y < _size; y++)
+    std::adjacent_difference(tmp._vect.begin(), tmp._vect.end(), v.begin());
+    int result = v[0];
+    for (unsigned int y = 1; y < tmp._vect.size(); y++)
     {
-        if (x > (tmp[y] - tmp[0]))
-            x = tmp[y] - tmp[0];
+        if (result > v[y])
+            result = v[y];
     }
-    return (x);
+    return (result);
 }
 
 void Span::addNumber(int num){
@@ -79,5 +80,4 @@ Span::~Span()
 
 int Span::operator[](int i){
     return _vect[i];
-    // std::cout << _vect[i] << std::endl;
 }

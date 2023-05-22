@@ -73,6 +73,8 @@
         "ratio": "cpp",
         "stack": "cpp",
         "list": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "__tree": "cpp",
+        "filesystem": "cpp"
     }
 }

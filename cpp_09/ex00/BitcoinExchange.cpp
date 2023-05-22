@@ -13,7 +13,7 @@ void get_in_file(std::ifstream& in){
 void fill_data(std::ifstream &in, std::map<std::string, float> &data)
 {
     std::string buf;
-    char *end {};
+    char *end;
     getline(in, buf);
     while (getline(in, buf))
     {
@@ -24,7 +24,17 @@ void fill_data(std::ifstream &in, std::map<std::string, float> &data)
     }
 }
 
-bool checkDate(std::string date){
+bool check_lower_value(std::string date, std::map<std::string, float> data){
+    
+    std::map<std::string, float>::iterator x;
+    x = data.upper_bound(date);
+    if (data.find(date) == data.end()){
+        std::cout << date <<" -> " << x->first << " " << data[x->first] << std::endl;
+    }
+    return true;
+}
+
+bool checkDate(std::string date, std::map<std::string, float> data){
     
     int year, month, day;
     if (isdigit(date[0]) && isdigit(date[1]) && isdigit(date[2]) && isdigit(date[3]) 
@@ -44,7 +54,10 @@ bool checkDate(std::string date){
             std::cout << "Error: bad input => " << date << std::endl;
             return false;
         }
-        // std::cout << day << " | ";
+        if (check_lower_value(date, data))
+        {
+
+        }
         return true;
     }
     else
@@ -55,7 +68,7 @@ bool checkDate(std::string date){
 }
 
 bool checkValue(std::string value){
-    char *end {};
+    char *end;
     long val = strtold(value.c_str(), &end);
     // std::cout << val << std::endl;
     if (val > 1000 || val < 0)

@@ -1,8 +1,19 @@
 #include "Span.hpp"
-#define NBR 8
+#define NBR 10000
 #include <list>
 int main()
 {
+    {
+        Span sp = Span(5);
+        sp.addNumber(6);
+        sp.addNumber(3);
+        sp.addNumber(17);
+        sp.addNumber(9);
+        sp.addNumber(11);
+        sp.printElement();
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
+    }
     // {
     //     Span span(NBR);
     //     srand(time(NULL));
@@ -28,17 +39,6 @@ int main()
     //     }
     // }
     {
-        Span sp = Span(5);
-        sp.addNumber(6);
-        sp.addNumber(3);
-        sp.addNumber(17);
-        sp.addNumber(9);
-        sp.addNumber(11);
-        sp.printElement();
-        std::cout << sp.shortestSpan() << std::endl;
-        std::cout << sp.longestSpan() << std::endl;
-    }
-    {
         Span span(NBR);
         std::vector<int> vec;
         srand(time(NULL));
@@ -58,6 +58,5 @@ int main()
             std::cout << e.what() << std::endl;
         }
     }
-    
     return 0;
 }
