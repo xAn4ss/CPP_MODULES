@@ -24,17 +24,20 @@ void fill_data(std::ifstream &in, std::map<std::string, float> &data)
     }
 }
 
-bool check_lower_value(std::string date, std::map<std::string, float> data){
+// bool check_lower_value(std::string date, std::map<std::string, float> data){
     
-    std::map<std::string, float>::iterator x;
-    x = data.upper_bound(date);
-    if (data.find(date) == data.end()){
-        std::cout << date <<" -> " << x->first << " " << data[x->first] << std::endl;
-    }
-    return true;
-}
+//     std::map<std::string, float>::iterator x;
+//     if (data.find(date) == data.end()){
+//         x = data.upper_bound(date);
+//         data[date] = --x->second;
+//         std::cout << date << " =>" << value << " = "
+//                 << data[date] * strtof(value.c_str(), &end) << std::endl;
+//         // std::cout << date <<" -> " << (--x)->first << " " << x->second << std::endl;
+//     }
+//     return true;
+// }
 
-bool checkDate(std::string date, std::map<std::string, float> data){
+bool checkDate(std::string date){
     
     int year, month, day;
     if (isdigit(date[0]) && isdigit(date[1]) && isdigit(date[2]) && isdigit(date[3]) 
@@ -54,9 +57,10 @@ bool checkDate(std::string date, std::map<std::string, float> data){
             std::cout << "Error: bad input => " << date << std::endl;
             return false;
         }
-        if (check_lower_value(date, data))
+        if (year < 2009)
         {
-
+            std::cout << "DB don't have this data" << std::endl;
+            return false;
         }
         return true;
     }

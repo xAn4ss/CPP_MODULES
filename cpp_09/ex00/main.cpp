@@ -18,6 +18,8 @@ int main(int ac, char **av){
     {
         std::cout << "Can't open input file." << std::endl;
         exit(EXIT_FAILURE);
+    }else if(input. ){
+        
     }
     std::string buf;
     char *end;
@@ -35,10 +37,18 @@ int main(int ac, char **av){
             date = buf.substr(0, i-1);
             value = buf.substr(i+1);
             // std::cout << date << "--" << value << std::endl;
-            if (checkDate(date, data) && checkValue(value))
+            if(checkDate(date) && checkValue(value))
             {
-                std::cout << date << " =>" << value << " = "
-                << data[date] * strtof(value.c_str(), &end) << std::endl;
+                if (data.find(date) == data.end()){
+                    std::map<std::string, float>::iterator x;
+                    x = data.upper_bound(date);
+                    std::cout << date << " =>" << value << " === "
+                            << (--x)->second * strtof(value.c_str(), &end) << std::endl;
+                    // std::cout << date <<" -> " << (--x)->first << " " << x->second << std::endl;
+                }else{
+                    std::cout << date << " =>" << value << " = "
+                    << data[date] * strtof(value.c_str(), &end) << std::endl;
+                }
             }
         }
     }
