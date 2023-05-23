@@ -7,24 +7,28 @@ int main(int ac, char **av){
    
     if (ac != 2)
     {
-        std::cout << "Error: could not open file." << std::endl;
+        std::cout << "Error: Can't open input file." << std::endl;
         return 0; 
     }
-
+    std::ifstream input(av[1]);
     get_in_file(in);
     fill_data(in, data);
-    std::ifstream input(av[1]);
     if (!input.is_open())
     {
         std::cout << "Can't open input file." << std::endl;
-        exit(EXIT_FAILURE);
-    }else if(input. ){
-        
+        return(EXIT_FAILURE);
+    }else if(input.peek() == EOF){
+        std::cout << "Input file is empty !!" << std::endl;
+        return (EXIT_FAILURE);
     }
-    std::string buf;
+    std::string date, value, buf; 
     char *end;
     getline(input, buf);
-    std::string date, value;
+    if (buf.compare("date | value"))
+    {
+        std::cout << "Syntax error" << std::endl;
+        return (EXIT_FAILURE);
+    }
     while (getline(input, buf))
     {
         int i;
@@ -36,7 +40,7 @@ int main(int ac, char **av){
         {
             date = buf.substr(0, i-1);
             value = buf.substr(i+1);
-            // std::cout << date << "--" << value << std::endl;
+
             if(checkDate(date) && checkValue(value))
             {
                 if (data.find(date) == data.end()){
@@ -44,7 +48,6 @@ int main(int ac, char **av){
                     x = data.upper_bound(date);
                     std::cout << date << " =>" << value << " === "
                             << (--x)->second * strtof(value.c_str(), &end) << std::endl;
-                    // std::cout << date <<" -> " << (--x)->first << " " << x->second << std::endl;
                 }else{
                     std::cout << date << " =>" << value << " = "
                     << data[date] * strtof(value.c_str(), &end) << std::endl;

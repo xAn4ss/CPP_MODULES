@@ -16,6 +16,7 @@ int main(int ac, char ** av){
     {
         if (buf.size() != 1)
         {
+            std::cout << buf.size() << " " << buf.data() << std::endl;
             std::cout << "ERROR: Check input." << std::endl;
             return 0;
         }
@@ -25,6 +26,11 @@ int main(int ac, char ** av){
         }
         else if (buf[0] == '+' || buf[0] == '-' || buf[0] == '*' || buf[0] == '/')
         {
+            if (data.size() != 2)
+            {
+                std::cout << "ERROR: Check input !!!" << std::endl;
+                return 0;
+            }
             it1 = data.end();
             --it1;
             it2 = it1;
@@ -41,10 +47,12 @@ int main(int ac, char ** av){
                     result = *it2 * *it1;
                     break;
                 case '/':
+                    if (*it1 == 0)
+                        throw (std::exception());
                     result = *it2 / *it1;
                     break;
             }
-            std::cout << *it2 << " " << buf[0] << " " << *it1 << " --> " << result << std::endl;
+            // std::cout << *it2 << " " << buf[0] << " " << *it1 << " --> " << result << std::endl;
             data.pop_back();
             data.pop_back();
             data.push_back(result);
