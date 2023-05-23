@@ -1,4 +1,4 @@
-SRC = main.cpp RPN.cpp\
+SRC = main.cpp \
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 

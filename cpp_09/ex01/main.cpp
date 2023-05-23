@@ -28,10 +28,11 @@ int main(int ac, char ** av){
         {
             if (data.size() != 2)
             {
-                std::cout << "ERROR: Check input !!!" << std::endl;
+                std::cout << "ERROR: Check input !!" << std::endl;
                 return 0;
             }
             it1 = data.end();
+
             --it1;
             it2 = it1;
             --it2;
@@ -57,6 +58,12 @@ int main(int ac, char ** av){
             data.pop_back();
             data.push_back(result);
         }
+        else
+        {
+            std::cout << "ERROR: Check input !!!" << std::endl;
+            return 0;
+        }
+        
     }
     std::cout << "---> " <<*data.begin()<< " / " << result << std::endl;
 
