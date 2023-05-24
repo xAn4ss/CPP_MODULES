@@ -13,12 +13,13 @@ private:
     std::deque<int>     SortedDeq;
     std::deque<int>     UnsortedDeq;
 public:
-    Pmerge();
+    Pmerge(int *arr);
     ~Pmerge();
 };
 
-Pmerge::Pmerge()
+Pmerge::Pmerge(int *arr)
 {
+    &SortedVec = new std::vector<int>();
 }
 
 Pmerge::~Pmerge()
