@@ -19,7 +19,7 @@ public:
 
 Pmerge::Pmerge(int *arr)
 {
-    &SortedVec = new std::vector<int>();
+    SortedVec = new std::vector<int>();
 }
 
 Pmerge::~Pmerge()
