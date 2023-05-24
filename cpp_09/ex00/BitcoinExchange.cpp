@@ -40,9 +40,10 @@ void fill_data(std::ifstream &in, std::map<std::string, float> &data)
 bool checkDate(std::string date){
     
     int year, month, day;
-    if (isdigit(date[0]) && isdigit(date[1]) && isdigit(date[2]) && isdigit(date[3]) 
-        && date[4] == '-' && isdigit(date[5]) && isdigit(date[6]) && date[7] == '-'
-         && isdigit(date[8]) && isdigit(date[9]))
+    // if (isdigit(date[0]) && isdigit(date[1]) && isdigit(date[2]) && isdigit(date[3]) 
+    //     && date[4] == '-' && isdigit(date[5]) && isdigit(date[6]) && date[7] == '-'
+    //      && isdigit(date[8]) && isdigit(date[9]))
+    // do it with first not of
     {
         year = atoi(date.substr(0, 4).c_str());
         // std::cout << year << " ";
