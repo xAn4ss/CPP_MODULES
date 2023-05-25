@@ -2,20 +2,25 @@
 #define PMERGE_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <deque>
 #include <ctime>
+#include <math.h>
 class Pmerge
 {
     private:
     public:
         Pmerge();
         ~Pmerge();
+        template <typename T> void processSort(T &cont, std::string);
         template <typename T> void printElement(T cont);
         template <typename T> void insertion(T &cont, int low, int last);
-        template <typename T> void merge(T &cont, int begin, int mid, int last);
         template <typename T> void mergeAndInsert(T &cont, int begin, int last);
+        template <typename T> void merge(T &cont, int begin, int mid, int last);
 };
+
+int check_sorted(int *arr, int size);
 
 template <class T> void Pmerge::insertion(T &cont, int begin, int last)
 {
@@ -34,15 +39,15 @@ template <class T> void Pmerge::insertion(T &cont, int begin, int last)
 
 template <typename T> void Pmerge::printElement(T cont)
 {
-    std::vector<int>::iterator it = cont.begin();
+    typename T::iterator it = cont.begin();
     while (it != cont.end())
         std::cout << *it++ << " ";
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
 }
 
 template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
 {
-    int leftSize = mid - last + 1;
+    int leftSize = mid - begin + 1;
     int rightSize = last - mid;
 
     std::vector<int> left(leftSize);
@@ -68,8 +73,12 @@ template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
         else
             cont[k++] = right[y++];
     }
+
     while (i < leftSize)
+    {
         cont[k++] = left[i++];
+        // std::cout << i << " -- " << leftSize << std::endl;
+    }
     while (y < rightSize)
         cont[k++] = right[y++];
 }
@@ -78,7 +87,7 @@ template <class T> void Pmerge::mergeAndInsert(T &cont, int begin, int last)
 {
     if (begin < last)
     {
-        if (last - begin + 1 <= 16)
+        if (last - begin <= 16)
             insertion(cont, begin, last);
         else{
             int mid = begin + (last - begin) / 2;
@@ -87,6 +96,19 @@ template <class T> void Pmerge::mergeAndInsert(T &cont, int begin, int last)
             merge(cont, begin, mid, last);
         }
     }
+}
+
+template <typename T> void Pmerge::processSort(T &cont, std::string str)
+{
+    std::cout << "Before  : ";
+    printElement(cont);
+    std::clock_t t1 = std::clock();
+    mergeAndInsert(cont, 0, cont.size());
+    std::clock_t t2 = std::clock();
+    std::cout << "After  : ";
+    printElement(cont);
+    std::cout << std::endl << "Time to process a range of size "<< cont.size() << " elements with "<< str << " : "
+         << std::fixed << double(t2 - t1) / CLOCKS_PER_SEC << " us" << std::endl << std::endl;
 }
 
 #endif

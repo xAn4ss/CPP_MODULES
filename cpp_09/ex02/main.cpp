@@ -1,20 +1,46 @@
 #include "Pmerge.hpp"
 
+int check_sorted(int *arr, int size)
+{
+    int count = 0;
+    for (int i = 0; i < size - 1; i++)
+    {
+        int j = i + 1;
+        if (arr[i] < arr[j])
+            count++;
+    }
+    if (count == size - 1)
+        return 1;
+
+    return 0;
+}
+
+
+
+
+
 int main(int ac, char **av)
 {
     if (ac == 1)
     {
         std::cout << "Enter numbers !!!" << std::endl;
+        return 0;
     }
     int arr[ac - 1];
     int i = 0;
     std::string num;
+    long nb;
     while (i < ac - 1)
     {
         num = av[i + 1];
         if (num.find_first_not_of("+0123456789") == std::string::npos)
         {
-            arr[i] = atol(num.c_str());
+            if ((nb = atol(num.c_str())) > INT_MAX)
+            {
+                std::cout << "ERROR: max int."<< std::endl;
+                return 0;
+            }
+            arr[i] = nb;
         }
         else
         {
@@ -36,23 +62,22 @@ int main(int ac, char **av)
             }
         }
     }
+    if (check_sorted(arr, ac-1))
+    {
+        std::cout << "Sorted !!!" << std::endl;
+        return 0;
+    }
     std::vector<int> vec;
+    std::deque<int> deq;
     for (int i = 0; i < ac - 1; i++)
     {
         vec.push_back(arr[i]);
+        deq.push_back(arr[i]);
     }
 
     Pmerge Pm;
-    std::cout << "Before  : ";
-    Pm.printElement(vec);
-    std::clock_t t1 = std::clock();
-    Pm.mergeAndInsert(vec, 0, vec.size() - 1);
-    std::clock_t t2 = std::clock();
-    std::cout << "After  : ";
-    Pm.printElement(vec);
-    double t = 1000000.0 * (t2 - t1) / CLOCKS_PER_SEC;
-    std::cout << t << std::endl;
-
+    Pm.processSort(vec, "std::vector");
+    Pm.processSort(deq, "std::deque");
 
     return 0;
 }
