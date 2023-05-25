@@ -24,7 +24,7 @@ int check_sorted(int *arr, int size);
 
 template <class T> void Pmerge::insertion(T &cont, int begin, int last)
 {
-    for (int i = begin + 1; i <= last; i++)
+    for (int i = begin + 1; i <= last; ++i)
     {
         int tmp = cont[i];
         int j = i - 1;
@@ -64,7 +64,7 @@ template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
         right[y] = cont[mid + y + 1];
         y++;
     }
-    int k = last;
+    int k = begin;
     i = 0, y = 0;
     while (i < leftSize && y < rightSize)
     {
@@ -73,21 +73,13 @@ template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
         else
             cont[k++] = right[y++];
     }
-
-    while (i < leftSize)
-    {
-        cont[k++] = left[i++];
-        // std::cout << i << " -- " << leftSize << std::endl;
-    }
-    while (y < rightSize)
-        cont[k++] = right[y++];
 }
 
 template <class T> void Pmerge::mergeAndInsert(T &cont, int begin, int last)
 {
     if (begin < last)
     {
-        if (last - begin <= 16)
+        if (last - begin  +  1 <= 16)
             insertion(cont, begin, last);
         else{
             int mid = begin + (last - begin) / 2;
@@ -103,7 +95,7 @@ template <typename T> void Pmerge::processSort(T &cont, std::string str)
     std::cout << "Before  : ";
     printElement(cont);
     std::clock_t t1 = std::clock();
-    mergeAndInsert(cont, 0, cont.size());
+    mergeAndInsert(cont, 0, cont.size() - 1);
     std::clock_t t2 = std::clock();
     std::cout << "After  : ";
     printElement(cont);

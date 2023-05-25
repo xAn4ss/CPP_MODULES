@@ -35,7 +35,7 @@ int main(int ac, char **av)
         num = av[i + 1];
         if (num.find_first_not_of("+0123456789") == std::string::npos)
         {
-            if ((nb = atol(num.c_str())) > INT_MAX)
+            if ((nb = atol(num.c_str())) > RAND_MAX)
             {
                 std::cout << "ERROR: max int."<< std::endl;
                 return 0;
