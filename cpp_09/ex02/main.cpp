@@ -41,17 +41,18 @@ int main(int ac, char **av)
     {
         vec.push_back(arr[i]);
     }
-    std::vector<int>::iterator it = vec.begin();
-    while (it != vec.end())
-    {
-        std::cout << *it++ << std::endl;
-    }
+
     Pmerge Pm;
+    std::cout << "Before  : ";
+    Pm.printElement(vec);
+    std::clock_t t1 = std::clock();
     Pm.mergeAndInsert(vec, 0, vec.size() - 1);
-    it =  vec.begin();
-    while (it != vec.end())
-    {
-        std::cout << *it++ << std::endl;
-    }
+    std::clock_t t2 = std::clock();
+    std::cout << "After  : ";
+    Pm.printElement(vec);
+    double t = 1000000.0 * (t2 - t1) / CLOCKS_PER_SEC;
+    std::cout << t << std::endl;
+
+
     return 0;
 }

@@ -4,17 +4,17 @@
 #include <iostream>
 #include <vector>
 #include <deque>
-
+#include <ctime>
 class Pmerge
 {
     private:
-
     public:
         Pmerge();
         ~Pmerge();
-        template <typename T> void mergeAndInsert(T &cont, int begin, int last);
-        template <typename T> void merge(T &cont, int begin, int mid, int last);
+        template <typename T> void printElement(T cont);
         template <typename T> void insertion(T &cont, int low, int last);
+        template <typename T> void merge(T &cont, int begin, int mid, int last);
+        template <typename T> void mergeAndInsert(T &cont, int begin, int last);
 };
 
 template <class T> void Pmerge::insertion(T &cont, int begin, int last)
@@ -30,6 +30,14 @@ template <class T> void Pmerge::insertion(T &cont, int begin, int last)
         }
         cont[j + 1] = tmp;
     }
+}
+
+template <typename T> void Pmerge::printElement(T cont)
+{
+    std::vector<int>::iterator it = cont.begin();
+    while (it != cont.end())
+        std::cout << *it++ << " ";
+    std::cout << std::endl;
 }
 
 template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
