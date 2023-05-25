@@ -19,31 +19,14 @@ void fill_data(std::ifstream &in, std::map<std::string, float> &data)
     {
         float num = strtof(buf.substr(11).c_str(), &end);
         data.insert(std::pair<std::string, float>(buf.substr(0, 10), num));
-        // std::cout << buf << ".  (" << buf.substr(0,10) << ")"<<
-        // "  ("<< num << ")."<< std::endl;
     }
 }
 
-// bool check_lower_value(std::string date, std::map<std::string, float> data){
-    
-//     std::map<std::string, float>::iterator x;
-//     if (data.find(date) == data.end()){
-//         x = data.upper_bound(date);
-//         data[date] = --x->second;
-//         std::cout << date << " =>" << value << " = "
-//                 << data[date] * strtof(value.c_str(), &end) << std::endl;
-//         // std::cout << date <<" -> " << (--x)->first << " " << x->second << std::endl;
-//     }
-//     return true;
-// }
 
 bool checkDate(std::string date){
     
     int year, month, day;
-    // if (isdigit(date[0]) && isdigit(date[1]) && isdigit(date[2]) && isdigit(date[3]) 
-    //     && date[4] == '-' && isdigit(date[5]) && isdigit(date[6]) && date[7] == '-'
-    //      && isdigit(date[8]) && isdigit(date[9]))
-    // do it with first not of
+    if (date.find_first_not_of("-0123456789") == (size_t)-1 && date.length() == 10)
     {
         year = atoi(date.substr(0, 4).c_str());
         // std::cout << year << " ";
@@ -58,10 +41,14 @@ bool checkDate(std::string date){
             std::cout << "Error: bad input => " << date << std::endl;
             return false;
         }
-        if (year < 2009)
+        if (year < 2009 || year > 2022)
         {
             std::cout << "DB don't have this data" << std::endl;
             return false;
+        }
+        if (month == 2 && day > 29)
+        {
+            std::cout << "Date doesn't exist" << std::endl;
         }
         return true;
     }
@@ -74,12 +61,20 @@ bool checkDate(std::string date){
 
 bool checkValue(std::string value){
     char *end;
-    long val = strtold(value.c_str(), &end);
-    // std::cout << val << std::endl;
-    if (val > 1000 || val < 0)
+    if (value.find_first_not_of("+0123456789. ") == (size_t)-1)
     {
-        std::cout << "Error: check value => " << value << std::endl;
+        long double val = strtold(value.c_str(), &end);
+        // std::cout << val << std::endl;
+        if (val > 1000 || val < 0)
+        {
+            std::cout << "Error: check value => " << value << std::endl;
+            return false;
+        }
+        return true;
+    }
+    else
+    {
+        std::cout << "ERROR: Check value" << std::endl;
         return false;
     }
-    return true;
 }

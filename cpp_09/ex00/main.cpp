@@ -55,6 +55,10 @@ int main(int ac, char **av){
             }
         }
     }
+    if (buf.empty())
+    {
+        std::cout << "Enter date | value in input.txt" << std::endl;
+    }
     
     // std::cout << data["2012-03-02"] << std::endl;
 }
