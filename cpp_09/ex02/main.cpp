@@ -36,10 +36,22 @@ int main(int ac, char **av)
             }
         }
     }
-    Pmerge Pm(int *arr);
+    std::vector<int> vec;
     for (int i = 0; i < ac - 1; i++)
     {
-        std::cout << arr[i] << std::endl;
+        vec.push_back(arr[i]);
+    }
+    std::vector<int>::iterator it = vec.begin();
+    while (it != vec.end())
+    {
+        std::cout << *it++ << std::endl;
+    }
+    Pmerge Pm;
+    Pm.mergeAndInsert(vec, 0, vec.size() - 1);
+    it =  vec.begin();
+    while (it != vec.end())
+    {
+        std::cout << *it++ << std::endl;
     }
     return 0;
 }
