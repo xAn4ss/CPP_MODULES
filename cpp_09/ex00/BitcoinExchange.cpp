@@ -22,6 +22,30 @@ void fill_data(std::ifstream &in, std::map<std::string, float> &data)
     }
 }
 
+void printData(std::map<std::string, float> data ,std::string  date, std::string  value,  std::stringstream &str)
+{
+    char *end;
+    std::string tmp;
+    getline(str, date, ' ');
+    getline(str, tmp, ' ');
+    getline(str, value, ' ');
+    if(checkDate(date) && checkValue(value))
+    {
+        if (data.find(date) == data.end()){
+            std::map<std::string, float>::iterator x;
+            x = data.upper_bound(date);
+            --x;
+            std::cout << date << " =>" << value << " == ";
+            if  (x->second  == -1)
+                std::cout << "0" << std::endl;
+            else
+                std::cout << (x)->second * strtof(value.c_str(), &end) << std::endl;
+        }else{
+            std::cout << date << " =>" << value << " = "
+            << data[date] * strtof(value.c_str(), &end) << std::endl;
+        }
+    }
+}
 
 bool checkDate(std::string date){
     
@@ -46,9 +70,10 @@ bool checkDate(std::string date){
             std::cout << "DB don't have this data" << std::endl;
             return false;
         }
-        if (month == 2 && day > 29)
+        if ((month == 2 && day > 29) || (year == 2009 && month == 1 && day < 2))
         {
             std::cout << "Date doesn't exist" << std::endl;
+            return false;
         }
         return true;
     }
@@ -61,7 +86,8 @@ bool checkDate(std::string date){
 
 bool checkValue(std::string value){
     char *end;
-    if (value.find_first_not_of("+0123456789. ") == (size_t)-1)
+
+    if (value.find_first_not_of("+0123456789. ") == (size_t)-1 &&  !value.empty())
     {
         long double val = strtold(value.c_str(), &end);
         // std::cout << val << std::endl;

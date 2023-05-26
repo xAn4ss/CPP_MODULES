@@ -7,12 +7,12 @@ int main(int ac, char **av){
    
     if (ac != 2)
     {
-        std::cout << "Error: Can't open input file." << std::endl;
+        std::cout << "Error: Check arguments." << std::endl;
         return 0; 
     }
-    std::ifstream input(av[1]);
     get_in_file(in);
     fill_data(in, data);
+    std::ifstream input(av[1]);
     if (!input.is_open())
     {
         std::cout << "Can't open input file." << std::endl;
@@ -22,7 +22,6 @@ int main(int ac, char **av){
         return (EXIT_FAILURE);
     }
     std::string date, value, buf; 
-    char *end;
     getline(input, buf);
     if (buf.compare("date | value"))
     {
@@ -38,27 +37,12 @@ int main(int ac, char **av){
         }
         else
         {
-            date = buf.substr(0, i-1);
-            value = buf.substr(i+1);
-
-            if(checkDate(date) && checkValue(value))
-            {
-                if (data.find(date) == data.end()){
-                    std::map<std::string, float>::iterator x;
-                    x = data.upper_bound(date);
-                    std::cout << date << " =>" << value << " === "
-                            << (--x)->second * strtof(value.c_str(), &end) << std::endl;
-                }else{
-                    std::cout << date << " =>" << value << " = "
-                    << data[date] * strtof(value.c_str(), &end) << std::endl;
-                }
-            }
+            std::stringstream str(buf);
+            printData(data, date, value, str);
         }
     }
     if (buf.empty())
     {
         std::cout << "Enter date | value in input.txt" << std::endl;
     }
-    
-    // std::cout << data["2012-03-02"] << std::endl;
 }

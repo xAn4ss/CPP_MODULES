@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <list>
+#include <stack>
 #include <string>
 #include <iterator>
 
