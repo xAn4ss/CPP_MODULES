@@ -28,6 +28,11 @@ void printData(std::map<std::string, float> data ,std::string  date, std::string
     std::string tmp;
     getline(str, date, ' ');
     getline(str, tmp, ' ');
+    if (tmp.compare("|"))
+    {
+        std::cout << "Error: bad input"<< std::endl;
+        return ;
+    }
     getline(str, value, ' ');
     if(checkDate(date) && checkValue(value))
     {
@@ -47,7 +52,7 @@ void printData(std::map<std::string, float> data ,std::string  date, std::string
     }
 }
 
-bool checkDate(std::string date){
+bool checkDate(std::string &date){
     
     int year, month, day;
     if (date.find_first_not_of("-0123456789") == (size_t)-1 && date.length() == 10)
@@ -59,7 +64,6 @@ bool checkDate(std::string date){
             std::cout << "Error: bad input => " << date << std::endl;
             return false;
         }   
-        // std::cout << month << " ";
         if ((day = atoi(date.substr(8).c_str())) < 1 || day > 31)
         {
             std::cout << "Error: bad input => " << date << std::endl;
@@ -84,13 +88,15 @@ bool checkDate(std::string date){
     }
 }
 
-bool checkValue(std::string value){
+bool checkValue(std::string &value){
     char *end;
 
-    if (value.find_first_not_of("+0123456789. ") == (size_t)-1 &&  !value.empty())
+    if (value.find_first_not_of("+0123456789.,") == (size_t)-1 &&  !value.empty())
     {
+        size_t x = 0;
+        if((x = value.find(",", 0)) != (size_t)-1)
+            value[x] = '.';
         long double val = strtold(value.c_str(), &end);
-        // std::cout << val << std::endl;
         if (val > 1000 || val < 0)
         {
             std::cout << "Error: check value => " << value << std::endl;

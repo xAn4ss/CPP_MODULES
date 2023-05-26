@@ -13,13 +13,16 @@ class Pmerge
     public:
         Pmerge();
         ~Pmerge();
-        template <typename T> void processSort(T &cont, std::string);
+        Pmerge(const Pmerge& copied);
+        Pmerge& operator=(const Pmerge& rval);
+        template <typename T> double processSort(T &cont);
         template <typename T> void printElement(T cont);
         template <typename T> void insertion(T &cont, int low, int last);
         template <typename T> void mergeAndInsert(T &cont, int begin, int last);
         template <typename T> void merge(T &cont, int begin, int mid, int last);
 };
 
+int getArrayAndCheck(int *arr, int ac, char **av);
 int check_sorted(int *arr, int size);
 
 template <class T> void Pmerge::insertion(T &cont, int begin, int last)
@@ -42,7 +45,7 @@ template <typename T> void Pmerge::printElement(T cont)
     typename T::iterator it = cont.begin();
     while (it != cont.end())
         std::cout << *it++ << " ";
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl;
 }
 
 template <class T> void Pmerge::merge(T &cont, int begin, int mid, int last)
@@ -79,7 +82,7 @@ template <class T> void Pmerge::mergeAndInsert(T &cont, int begin, int last)
 {
     if (begin < last)
     {
-        if (last - begin  +  1 <= 16)
+        if (last - begin  +  1 <= 20)
             insertion(cont, begin, last);
         else{
             int mid = begin + (last - begin) / 2;
@@ -90,17 +93,12 @@ template <class T> void Pmerge::mergeAndInsert(T &cont, int begin, int last)
     }
 }
 
-template <typename T> void Pmerge::processSort(T &cont, std::string str)
+template <typename T> double Pmerge::processSort(T &cont)
 {
-    std::cout << "Before  : ";
-    printElement(cont);
     std::clock_t t1 = std::clock();
     mergeAndInsert(cont, 0, cont.size() - 1);
     std::clock_t t2 = std::clock();
-    std::cout << "After  : ";
-    printElement(cont);
-    std::cout << std::endl << "Time to process a range of size "<< cont.size() << " elements with "<< str << " : "
-         << std::fixed << double(t2 - t1) / CLOCKS_PER_SEC << " us" << std::endl << std::endl;
+    return (double(t2 - t1) / CLOCKS_PER_SEC);
 }
 
 #endif

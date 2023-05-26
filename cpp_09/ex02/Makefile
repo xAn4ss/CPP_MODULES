@@ -1,8 +1,8 @@
 SRC = main.cpp Pmerge.cpp\
 
-NAME = Pmerge
+FLAGS = -Wall -Werror -Wextra std=c98++
 
-FLAGS = -Wall -Werror -Wextra
+NAME = Pmerge
 
 all : $(NAME)
 
